@@ -116,8 +116,6 @@ void drawDigitalStep(Adafruit_GFX &gfx, bool leftState, bool rightState) {
     levelText = "0&1"; // Or "BOTH", "MAX"
   } else {
     // This case should not be reached if called from the main loop's "else" branch,
-    // as it implies both switches are off (which would be analog mode).
-    // However, as a fallback:
     yCoordinate = gfx_height - 30;
     levelText = "ERR";
   }
@@ -156,9 +154,8 @@ void loop() {
     // --- ANALOG MODE: No switches pressed ---
 
     // Read amplitude & frequency from potentiometer
-    // Max amplitude should ensure sine wave doesn't go into the top text area
-    float max_analog_amplitude = BASE_Y_LEVEL - 40; // Max deviation from BASE_Y_LEVEL upwards
-    if (max_analog_amplitude < 1) max_analog_amplitude = 1; // Ensure minimum amplitude range
+    float max_analog_amplitude = BASE_Y_LEVEL - 40;
+    if (max_analog_amplitude < 1) max_analog_amplitude = 1; 
     
     float amplitude = readPotentiometer(1.0, max_analog_amplitude);
     float frequency = readPotentiometer(0.5, 10.0); // Adjusted frequency range
@@ -174,7 +171,6 @@ void loop() {
     canvas.setTextColor(BLUE);
     canvas.print(frequency, 1);
     canvas.println(" cycles");
-    // Note: Amplitude is not displayed here, but could be added similarly
 
     drawSineWave(canvas, amplitude, frequency, BASE_Y_LEVEL);
 
@@ -187,5 +183,4 @@ void loop() {
   tft.drawRGBBitmap(0, 0, canvas.getBuffer(), SCREEN_WIDTH, SCREEN_HEIGHT);
   
   delay(1); // Small delay, can be adjusted or removed depending on performance.
-            // The drawing and bitmap transfer will determine the actual frame rate.
 }
