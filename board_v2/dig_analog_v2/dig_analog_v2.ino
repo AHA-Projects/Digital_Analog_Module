@@ -35,7 +35,7 @@ Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 // Let's place it about 30 pixels from the bottom for better visibility on a taller screen.
 const int BASE_Y_LEVEL = SCREEN_HEIGHT - 30;
 
-// --- Colors (Using 16-bit color values) ---
+// defining variables for color channels to be used later. (Variables are temporary storage location for repetitive usage of certain information, it makes the code more readable)
 #define BLACK   0x0000
 #define WHITE   0xFFFF
 #define BLUE    0x001F
